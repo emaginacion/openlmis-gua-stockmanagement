@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="physicaInventory" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="BlankPage" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="0" isFloatColumnFooter="true" whenResourceMissingType="Empty" uuid="a0a4e861-0726-422f-b3d5-54b1aefe96ce">
 	<import value="java.util.*"/>
-	<import value="java.text.*"/>
 	<import value="java.time.LocalDate"/>
 	<import value="java.time.format.DateTimeFormatter"/>
 	<import value="java.time.ZonedDateTime"/>
+	<import value="java.text.*"/>
 	<import value="java.time.ZoneId"/>
 	<parameter name="subreport" class="net.sf.jasperreports.engine.design.JasperDesign" isForPrompting="false"/>
 	<parameter name="pi_id" class="java.lang.String" isForPrompting="false"/>
@@ -23,8 +23,7 @@
 			INNER JOIN stockmanagement.stock_event_line_items sel on se.id = sel.stockeventid
 			WHERE pi.id = $P!{pi_id}
 			ORDER BY sel.occurreddate DESC
-			FETCH FIRST 1 ROWS ONLY
-		]]>
+			FETCH FIRST 1 ROWS ONLY]]>
 	</queryString>
 	<field name="event_id" class="java.lang.String"/>
 	<field name="facility" class="java.lang.String"/>
@@ -40,16 +39,16 @@
 			<staticText>
 				<reportElement x="20" y="10" width="800" height="20" uuid="8b895ad8-e565-41e4-87f4-fe70fea7b9f1"/>
 				<textElement verticalAlignment="Middle">
-					<font size="16" pdfFontName="Helvetica-Bold" isBold="true"/>
+					<font size="16" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<text><![CDATA[Submitted Physical Inventory]]></text>
+				<text><![CDATA[Inventario Físico Enviado]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="20" y="40" width="800" height="20" uuid="ec47a93b-983c-447f-85cf-4775e800330a"/>
 				<textElement>
-					<font size="13" pdfFontName="Helvetica-Bold" isBold="true"/>
+					<font size="13" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
-				<textFieldExpression><![CDATA[MessageFormat.format("Physical inventory for date: {0}",
+				<textFieldExpression><![CDATA[MessageFormat.format("Inventario físco para la fecha : {0}",
 					DateTimeFormatter.ofPattern($P{dateFormat}).format(LocalDate.parse($F{occurreddate})))]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -57,17 +56,16 @@
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[MessageFormat.format("Facility: {0}; Program: {1}", $F{facility}, $F{program})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[MessageFormat.format("Instalación: {0}; Programa: {1}", $F{facility}, $F{program})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="20" y="80" width="800" height="15" uuid="08e7b43c-4f44-4e33-88f6-92324585772e"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[MessageFormat.format("Submitted into system on {0} by {1}",
+				<textFieldExpression><![CDATA[MessageFormat.format("Enviado al sistema en {0} by {1}",
 				 DateTimeFormatter.ofPattern($P{dateTimeFormat}).format(ZonedDateTime.ofInstant(
-				 $F{processeddate}.toInstant(), ZoneId.of($P{timeZoneId}))),$F{username})]]>
-				</textFieldExpression>
+				 $F{processeddate}.toInstant(), ZoneId.of($P{timeZoneId}))),$F{username})]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
